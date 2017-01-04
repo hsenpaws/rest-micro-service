@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import au.com.optus.handlers.GlobalExceptionHandler;
 import au.com.optus.models.SearchText;
 
 @RestController
@@ -26,9 +27,11 @@ public class SearchTextController {
 	
 		searchText.forEach((i,j) -> {
 			j.forEach( (k) -> System.out.println(k));
+			
 			});
 		
 		return 1;
 	}
+	
 
 }

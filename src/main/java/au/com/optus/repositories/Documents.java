@@ -15,6 +15,7 @@ public class Documents {
 	public int searchByText (String text) {
         
 		SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(null, null);
+		return 1;
 		
 	}
 	
