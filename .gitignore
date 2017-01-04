@@ -1,0 +1,5 @@
+/bin/
+/target/
+*.st
+global-14.st
+node.lock

@@ -6,7 +6,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 public interface DocumentRepository extends ElasticsearchRepository<Documents, String> {
 	
-	public Documents findByText(String text);
-	public List<Documents> findTopXByName(String name, int limit);
+	public Documents countByText(String text);
+	public List<Documents> countTopXByName(int limit);
 
 }
