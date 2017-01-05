@@ -4,11 +4,8 @@
 ## Summary
 
 This is a learning project whose functionality, for the moment, is to:
-- Gather historical stock quotations from Yahoo Finance 
-- Gather "live" stock quotations from Google Finance
-- Index everything in a Elasticsearch node so queries, graphs and alarms can be generated.
-- Provide an AngularJS web interface wrapping the Kibana dashboards.
-- Provide portfolio management functionalities using the Stock prices stored in ES.
+- Serch text in a file and return number of times it is present.
+- Give top repeated words in a file
 
 
 On technical side:
