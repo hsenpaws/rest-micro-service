@@ -24,23 +24,26 @@ public class StartApp {
        
     }
     
-    public void testconfig () {
-    	
-    	PojoRepo prepo = new PojoRepo();
-    	try {
-			System.out.println(prepo.totalWordCount());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-    	
-    	try {
-			prepo.wordCount(1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
-    	
-    }
+//    public void testconfig () {
+//    	
+//    	PojoRepo prepo = new PojoRepo();
+//    	try {
+//			System.out.println(prepo.totalWordCount());
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//    	
+//    	try {
+//    		StringBuilder b = new StringBuilder();
+//			prepo.wordCount(10).forEach(b::append);
+//			
+//			System.out.println(b.toString());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		};
+//    	
+//    }
     
 }
