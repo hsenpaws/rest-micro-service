@@ -11,19 +11,17 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 //Pojo search/top functions - implemented for single file
-@Component
-@PropertySource(value = "application.properties")
+//@Component
+//@PropertySource(value = "application.properties")
 public class PojoRepo {
 
-	private  String prepo = "/tmp/afile";
-	private  Stream<String> fileStream;
+	private  String prepo; // = "C:/Users/sharmas2/afile";	
 	
-	
-
 	//Count total number of words in a file
 	public long totalWordCount() throws IOException {
 		
@@ -34,17 +32,9 @@ public class PojoRepo {
 	}
 	
 	//count each word & it's frequency in a file
-	//un-sorted list
-	public Stream<Entry<String, Integer>> wordCount (Integer limit) throws IOException {
-				
-//		return (Files.lines(Paths.get(prepo)).map(w -> w.split("\\s+"))
-//                .flatMap(Arrays::stream)
-//                .map(w -> w.replaceAll("[,.]$" , ""))
-//                .map(String::toLowerCase)
-//                .collect(
-//                        Collectors.groupingBy(Function.identity(),
-//                                Collectors.counting())));
-		
+	//un-sorted list		
+	public Stream<Entry<String, Integer>> wordCount (long limit) throws IOException {
+			
 		return Files.lines(Paths.get(prepo))
 	     .flatMap(line -> Stream.of(line.split("\\s+")))
 	     .map(w -> w.replaceAll("[,.]$" , ""))
@@ -57,5 +47,13 @@ public class PojoRepo {
 	     
 	    // .forEach(System.out::println);
                                 
+	}
+	
+	public String getPrepo() {
+		return prepo;
+	}
+
+	public void setPrepo(String prepo) {
+		this.prepo = prepo;
 	}
 }

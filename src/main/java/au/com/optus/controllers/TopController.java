@@ -18,25 +18,28 @@ import au.com.optus.repositories.PojoRepo;
 @RestController
 public class TopController {
 	
-	PojoRepo prepo;
-	
-	@RequestMapping(value = {"/top", "top/{id}"}, method = RequestMethod.POST) //, produces = "text/csv")
-	//@ResponseBody
+	@RequestMapping(value = {"/top", "top/{id}"}, produces = "text/csv")
+	@ResponseBody
 	public String top( @PathVariable Optional<Integer> id) {
 		
+		//Pojo Repo for search & topCount operatins
+		PojoRepo prepo = new PojoRepo();
 		
-		Stream<Entry<String, Integer>> result = null;
-		Integer limit;
+		long limit;
+		StringBuilder csvList = new StringBuilder();
 		
+		//set limit=1, if null or zero
 		if (id.isPresent() && id.get() != 0) {
 			 limit = id.get();
-		}
-		else { 
+		} else { 
 			limit = 1;
 		}
 		
 		try {
-		 result = prepo.wordCount(limit);
+		   prepo.wordCount(limit).forEach(w -> { 
+			   csvList.append(w);
+			   csvList.append(",");
+		   });
 		} catch (IOException e) {
 			//print to logs when it's configured
 			//return generic message - internal error
@@ -44,10 +47,9 @@ public class TopController {
 		} catch (Exception ex) {
 			System.out.println(ex.getCause());
 		}
-		
-		StringBuilder csvList = new StringBuilder();
-		result.forEach(csvList::append);
-		return csvList.toString();
+		System.out.println(csvList.toString());
+		return csvList.length() > 0 ? csvList.substring(0, csvList.length() - 1): "";
+
 	}
 	    
 }
