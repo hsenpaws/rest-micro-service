@@ -4,23 +4,27 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Function;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 //Pojo search/top functions - implemented for single file
-//@Component
-//@PropertySource(value = "application.properties")
+@Component
 public class PojoRepo {
+	
+	//FiePath to Read Article from
+	//This should be a Object which can handle File/Directory etc.
+	private static String prepo;
+	
+	public PojoRepo() {
+		if(prepo == null) setPrepo();
+	}
 
-	private  String prepo; // = "C:/Users/sharmas2/afile";	
 	
 	//Count total number of words in a file
 	public long totalWordCount() throws IOException {
@@ -32,7 +36,7 @@ public class PojoRepo {
 	}
 	
 	//count each word & it's frequency in a file
-	//un-sorted list		
+	//sorted list		
 	public Stream<Entry<String, Integer>> wordCount (long limit) throws IOException {
 			
 		return Files.lines(Paths.get(prepo))
@@ -49,11 +53,34 @@ public class PojoRepo {
                                 
 	}
 	
+	//count all words
+	public Stream<Entry<String, Integer>> wordCountAll () throws IOException {
+		
+		//System.out.println(prepo.toString());
+		
+		return Files.lines(Paths.get(prepo))
+				.flatMap( (l) -> Stream.of(l.split("\\s+")))
+				.map((w) -> w.replaceAll("[,.]$", ""))
+				.map(String::toLowerCase)
+				.collect(Collectors.toMap((w) -> (w), (w) -> 1, Integer::sum))
+				.entrySet()
+				.stream();
+			                                 
+	}
+	
+	//Getter-Setter - Setting filepath as static value
+	public static void setPrepo() {
+		Properties prop = new Properties();
+		try {
+			prop.load(PojoRepo.class.getClassLoader().getResourceAsStream("application.properties"));
+		} catch (IOException e) {
+			// 
+			System.out.println("ERROR: application.properties not in classpath" + e.getMessage());
+		}
+		PojoRepo.prepo = prop.getProperty("app.file.path");
+	}
+	
 	public String getPrepo() {
 		return prepo;
-	}
-
-	public void setPrepo(String prepo) {
-		this.prepo = prepo;
 	}
 }

@@ -1,15 +1,10 @@
 package au.com.optus.controllers;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.stream.Stream;
 
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,11 +15,12 @@ public class TopController {
 	
 	@RequestMapping(value = {"/top", "top/{id}"}, produces = "text/csv")
 	@ResponseBody
-	public String top( @PathVariable Optional<Integer> id) {
+	public String top(@PathVariable Optional<Integer> id) {
 		
-		//Pojo Repo for search & topCount operatins
+		//Pojo Repo for search & topCount operations
+		//set the file here
+		//PojoRepo prepo = new PojoRepo("C:/Users/sharmas2/afile");
 		PojoRepo prepo = new PojoRepo();
-		
 		long limit;
 		StringBuilder csvList = new StringBuilder();
 		
